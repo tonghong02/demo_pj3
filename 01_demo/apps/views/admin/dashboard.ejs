@@ -1,0 +1,199 @@
+<!DOCTYPE>
+<html>
+<head>
+	<title>HOME PAGE</title>
+	
+	<%- include layout/head  %>
+
+</head>
+<body>
+<div class="container">
+	<%- include layout/nav  %>
+
+	<div class="row">
+
+   	<div class="col-md-12" style="margin-bottom: 10px">
+   		<a href="/admin/post/new" class="btn btn-success pull-right"> Add new post </a>
+   	</div>
+		
+	</div>
+
+<!-- search -->
+   <div class="row"> 
+      <div class=" col-md-12">
+         <form id="loginform" class="form-horizontal" role="form" method="POST" action="">
+         <div class="form-group mx-sm-3">
+            <!-- <label for="inputPassword2" class="sr-only">Password</label> -->
+            <input type="text" class="form-control" id="key-search" placeholder="search" name="search">
+            <input id="search" type="submit" class="btn btn-primary" value="Search" />
+         </div>
+         
+         </form>
+      </div>
+      
+   </div>
+
+   <div class="row">
+
+      <div class="col-md-12" style="margin-bottom: 10px">
+         <a href="/admin/signin" > Signout</a>
+      </div>
+      
+   </div>
+   <div class="row">
+
+      <div class="col-md-12" style="margin-bottom: 10px">
+         <a href="#" > <b>Xin chao: </b><%= email  %></a>
+      </div>
+      
+   </div>
+
+	<div class="panel panel-default">
+      	<div class="panel-heading">
+         	Posts
+      	</div>
+      <!-- /.panel-heading -->
+      	<div class="panel-body">
+         	<div class="table-responsive list-posts">
+            	<table class="table table-striped table-bordered table-hover">
+               		<thead>
+	                  <tr>
+	                     <th>Id</th>
+	                     <th>Title</th>
+	                     <th>Content</th>
+	                     <th>Author</th>
+	                     <th>Create time</th>
+	                     <th>Update time</th>
+	                     <th style="width: 145px">Action</th>
+	                  </tr>
+               		</thead>
+
+               		<tbody>
+
+               			<% if(data && data.posts) { %>
+               				<% for(var i = 0; i < data.posts.length; i++) { %>
+               					<tr>
+               					<td> <%= data.posts[i].id %></td>
+               					<td> <%= data.posts[i].title %></td>
+               					<td> <%= data.posts[i].content %></td>
+               					<td> <%= data.posts[i].author %></td>
+               					<td> <%= data.posts[i].created_at %></td>
+               					<td> <%= data.posts[i].updated_at %></td>
+
+               					<td style="width: 145px;"> 
+	               					<a class="btn btn-primary" href="/admin/post/edit/<%= data.posts[i].id %>" style="float: left"> Edit </a>
+	               					<button class="btn btn-danger post-delete" style="float: right" post_id = "<%= data.posts[i].id %>"> Delete </button>
+	               				</td>
+
+               					</tr>
+
+
+               				<% } %>
+
+
+
+
+               			<% }%>
+	                  
+               		</tbody>
+            	</table>
+         	</div>
+         <!-- /.table-responsive -->
+
+         <!-- results search -->
+
+            <div class="table-responsive list-posts-search hidden">
+
+            <% if(!data || !data.posts) { %>
+               <p class="not-results "> Not result is match!!!</p>
+
+
+            <% } %>
+               
+
+              <% if(data && data.posts) { %>
+
+                <p class="not-results "> Found <%= data.posts.length %> rows match!</p>
+                <p></p>
+               <table class="table table-striped table-bordered table-hover results-search">
+                     <thead>
+                     <tr>
+                        <th>Id</th>
+                        <th>Title</th>
+                        <th>Content</th>
+                        <th>Author</th>
+                        <th>Create time</th>
+                        <th>Update time</th>
+                        <!-- <th style="width: 145px">Action</th> -->
+                     </tr>
+                     </thead>
+
+                     <tbody>
+
+                        
+                           <% for(var i = 0; i < data.posts.length; i++) { %>
+                              <tr>
+                              <td> <%= data.posts[i].id %></td>
+                              <td> <%= data.posts[i].title %></td>
+                              <td> <%= data.posts[i].content %></td>
+                              <td> <%= data.posts[i].author %></td>
+                              <td> <%= data.posts[i].created_at %></td>
+                              <td> <%= data.posts[i].updated_at %></td>
+
+                              <!-- <td style="width: 145px;"> 
+                                 <a class="btn btn-primary" href="/admin/post/edit/<%= data.posts[i].id %>" style="float: left"> Edit </a>
+                                 <button class="btn btn-danger post-delete" style="float: right" post_id = "<%= data.posts[i].id %>"> Delete </button>
+                              </td> -->
+
+                              </tr>
+
+
+                           <% } %>
+
+
+
+
+                        <% }%>
+                     
+                     </tbody>
+               </table>
+            </div>
+
+
+      	</div>
+  <!-- /.panel-body -->
+	</div>
+   <!-- /.panel -->
+
+   <div class="row">
+      <div class="col-md-4"> 
+
+      <form action="/admin/upload" enctype="multipart/form-data" method="post">
+         <input type="file" name="upload" multiple>
+         <input type="submit" value="Upload">
+      </form>
+
+      </div>
+      
+   </div>
+
+</div>
+
+
+<script type="text/javascript" src="/static/js/post.js"></script> 
+
+<script type="text/javascript">
+   
+   $(document).ready(function(){
+
+      $(".list-posts").removeClass("hidden");
+      $(".list-posts-search").addClass("hidden");
+      $("#search").click(function(){
+         $(".list-posts").addClass("hidden");
+         $(".list-posts-search").removeClass("hidden");
+      })
+   })
+</script>
+
+</body>
+</html>
