@@ -15,7 +15,7 @@ function getAllPosts(){
 			defer.reject(error);
 		}
 		else{
-			console.log(JSON.stringify(posts));
+			// console.log(JSON.stringify(posts));
 
 			for(var i = 0; i < posts.length; i++){
 				// posts[i].created_at = helper.formatDateFromSql(posts.created_at.toString());
@@ -33,7 +33,7 @@ function getAllPosts(){
 		}
 
 	});
-	console.log(query.sql);
+	// console.log(query.sql);
 
 	return defer.promise;
 
@@ -173,7 +173,7 @@ function deletePost(id){
 
 	}	
 
-	conn.end();
+	// conn.end();
 	
 	return false;
 

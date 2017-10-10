@@ -1,0 +1,128 @@
+<!DOCTYPE>
+<html>
+<head>
+	<title> NEW POST </title>
+
+	<%- include ../layout/head  %>
+	<script src="https://cloud.tinymce.com/stable/tinymce.min.js"></script>
+  	 <script>tinymce.init({forced_root_block : "",selector:'textarea'});</script>
+
+</head>
+<body>
+
+<div class="container">
+	<%- include ../layout/nav  %>
+
+
+
+   	<div class="panel panel-default">
+      	<div class="panel-heading">
+         Edit post
+      	</div>
+
+
+      	
+      	<div class="panel-body">
+         	<div class="row">
+            	<div class="col-lg-6">
+
+                     <div  style=" <%if(!data || !data.error) {%> display:none ; <%}%>" id="login-alert" class="alert alert-danger col-sm-12">
+                           <p>Error:</p>
+
+
+                           <%if (data && data.error) { %>
+                           <span> <%= data.error %></span>
+
+                           <% } %>
+                     </div>
+
+               		<form role="form" method="" action="">
+                     <input class="form-control id hidden " name="id" placeholder="Add title..." value="
+                           <%if (data && data.post) { %>
+                              <%= data.post.id %>
+                           <% } %>
+                           ">
+
+                  		<div class="form-group">
+                     		<label>Title</label>
+                     		<input class="form-control title" name="title" placeholder="Add title..." value="
+                           <%if (data && data.post) { %>
+                              <%= data.post.title %>
+                           <% } %>
+                           ">
+                  		</div>
+
+                  		<div class="form-group">
+                     		<label>Content</label>
+                     		<textarea class="form-control content" name="content" placeholder="Add content..."> <%if (data && data.post) { %>
+                              <%= data.post.content %>
+                           <% } %> </textarea>
+                  		</div>
+
+                  		<div class="form-group">
+                     		<label>Author</label>
+                     		<input class="form-control author" name="author" placeholder="Add author..." value=" <%if (data && data.post) { %>
+                              <%= data.post.author %>
+                           <% } %>">
+                  		</div>
+
+                  		<input type="button"  class="btn btn-primary post-edit" value="Edit post">
+                  		
+               		</form>
+               
+            	</div>
+         	</div>
+      	</div>
+   	</div>
+</div>
+
+	<!-- <script type="text/javascript">
+    function post(){
+
+   function blindEvent(){
+      $(".post-edit").click(function(e){
+         var params = {
+            id: $(".id").val(),
+            title: $(".title").val(),
+            content: tinymce.get("content").getContent,
+            author: $(".author").val(),
+         }
+
+         var baseUrl = location.protocol + "//" + location.domain + ":" + location.port;
+
+         $.ajax({
+
+            url : baseUrl + "/admin/post/edit",
+            type: "PUT",
+            data: params,
+            dataType: "json",
+            success: function(res){
+               if(res && res.status_code == 200){
+                  location.reload();
+               }
+            }
+         });
+
+      });
+
+
+
+   }
+
+   blindEvent();
+
+
+
+}
+
+$(document).ready(function(){
+   new post();
+})
+
+      
+   </script> -->
+
+<script type="text/javascript" src="/static/js/post.js"></script>
+
+</body>
+</html>

@@ -377,6 +377,8 @@ router.delete("/post/delete", function(req, res){
 	// lay duoc id tu ajax khi gui du lieu data den /post/delete
 	var id = req.body.id;
 
+	console.log(id);
+
 	var data = postModel.deletePost(id);
 
 	if(!data){
